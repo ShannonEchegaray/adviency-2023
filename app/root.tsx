@@ -1,3 +1,4 @@
+import { useContext, useEffect } from "react";
 import { cssBundleHref } from "@remix-run/css-bundle";
 import { withEmotionCache } from "@emotion/react";
 import { ChakraProvider } from "@chakra-ui/react";
@@ -12,10 +13,17 @@ import {
 } from "@remix-run/react";
 
 import { ServerStyleContext, ClientStyleContext } from "./context";
-import { useContext, useEffect } from "react";
+import { theme } from "./styles/theme";
+import fontWOFF from "./public/fonts/xmas-sweater-stitch/xmas-sweater-stitch.woff";
+import fontOTF from "./public/fonts/xmas-sweater-stitch/xmas-sweater-stitch.otf";
+import SnowfallBackground from "./components/snowfall/snowfall";
+import Fonts from "./styles/fonts";
 
 export const links: LinksFunction = () => [
-  ...(cssBundleHref ? [{ rel: "stylesheet", href: cssBundleHref }] : []),
+  ...(cssBundleHref ? [
+    { rel: "fonts", href: fontOTF },
+    { rel: "fonts", href: fontWOFF }
+  ] : []),
 ];
 
 interface DocumentProps {
@@ -58,6 +66,7 @@ const Document = withEmotionCache(
           }
         </head>
         <body>
+          <SnowfallBackground />
           { children }
           <ScrollRestoration />
           <Scripts />
@@ -71,7 +80,15 @@ const Document = withEmotionCache(
 export default function App() {
   return (
     <Document>
-      <ChakraProvider>
+      <ChakraProvider theme={theme}>
+        <Fonts link={[{
+          format: "opentype",
+          url: fontOTF
+        },
+        {
+          format: "woff",
+          url: fontWOFF
+        }]} />        
         <Outlet />
       </ChakraProvider>
     </Document>
