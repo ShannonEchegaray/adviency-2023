@@ -1,6 +1,6 @@
-import { Box, Heading, Text } from "@chakra-ui/react";
+import { Box, Button, Heading, Input, InputGroup, InputRightElement, Text } from "@chakra-ui/react";
 import { json, type MetaFunction } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
+import { Form, useLoaderData } from "@remix-run/react";
 import GiftList from "~/components/ui/gift-list";
 import { giftsMock } from "~/mock/gifts";
 
@@ -42,10 +42,28 @@ export default function Index() {
       >
           <Text 
             fontSize={"x-large"}
-            color={"yellow"}
+            color="yellow"
           >
             Regalos:
           </Text>
+          <Form method="post" action="/post">
+            <InputGroup
+              size="sm"
+            >
+              <Input 
+                name="gift"
+                type="text" 
+                borderRadius="base"
+                _focus={{
+                  borderColor: "yellow",
+                  boxShadow: "none"
+                }}
+              />
+              <InputRightElement w="auto" >
+                <Button type="submit" size="sm" borderRadius="base">Agregar</Button>
+              </InputRightElement>
+            </InputGroup>
+          </Form>
           <GiftList gifts={gifts} />
       </Box>
     </Box>
