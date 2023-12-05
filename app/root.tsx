@@ -11,18 +11,19 @@ import {
   Scripts,
   ScrollRestoration,
 } from "@remix-run/react";
+import fontOTF from "./public/fonts/xmas-sweater-stitch/xmas-sweater-stitch.otf";
+import fontWOFF from "./public/fonts/xmas-sweater-stitch/xmas-sweater-stitch.woff";
 
 import { ServerStyleContext, ClientStyleContext } from "./context";
 import { theme } from "./styles/theme";
-import fontWOFF from "./public/fonts/xmas-sweater-stitch/xmas-sweater-stitch.woff";
-import fontOTF from "./public/fonts/xmas-sweater-stitch/xmas-sweater-stitch.otf";
+
 import SnowfallBackground from "./components/snowfall/snowfall";
 import Fonts from "./styles/fonts";
 
 export const links: LinksFunction = () => [
   ...(cssBundleHref ? [
-    { rel: "fonts", href: fontOTF },
-    { rel: "fonts", href: fontWOFF }
+    {rel: "font", href: fontOTF},
+    {rel: "font", href: fontWOFF}
   ] : []),
 ];
 

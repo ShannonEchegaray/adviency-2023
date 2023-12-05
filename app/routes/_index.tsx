@@ -1,4 +1,4 @@
-import { Box, Text } from "@chakra-ui/react";
+import { Box, Text, Heading } from "@chakra-ui/react";
 import { json, type MetaFunction } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import GiftList from "~/components/ui/gift-list";
@@ -40,8 +40,8 @@ export default function Index() {
       >
           <Text 
             as={"h1"}
-            fontSize={"larger"}
-            fontWeight={700}
+            fontSize={"xxx-large"}
+            color={"yellow"}
           >
             Regalos:
           </Text>
