@@ -39,6 +39,7 @@ export default function Index() {
         boxShadow="md"
         display="flex"
         flexDirection="column"
+        gap="2"
       >
           <Text 
             fontSize={"x-large"}
@@ -46,7 +47,7 @@ export default function Index() {
           >
             Regalos:
           </Text>
-          <Form method="post" action="/post">
+          <Form method="post" action="/gifts/add">
             <InputGroup
               size="sm"
             >

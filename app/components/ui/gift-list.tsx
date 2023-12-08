@@ -1,4 +1,6 @@
-import { List, ListItem } from "@chakra-ui/react";
+import { Button, Icon, List, ListItem, Stack } from "@chakra-ui/react";
+import { CloseIcon } from "@chakra-ui/icons";
+import { Form } from "@remix-run/react";
 import React from "react";
 
 interface GiftListProps {
@@ -7,12 +9,22 @@ interface GiftListProps {
 
 const GiftList: React.FC<GiftListProps> = ({ gifts }) => {
   return (
-    <List>
+    <List spacing={1}>
       {
-        gifts.map((gift) => (
-          <ListItem key={gift}>
-            {gift}
-          </ListItem>
+        gifts.map((gift, index) => (
+          <Form key={gift} action={`/gifts/${index}/delete`} method="post">
+            <Stack 
+              direction="row"
+              alignItems="center"
+            >
+              <Button type="submit" size="sm" colorScheme="red">
+                <Icon as={CloseIcon}/>
+              </Button>
+              <ListItem>
+                {gift}
+              </ListItem>
+            </Stack>
+          </Form>
         ))
       }
     </List>
