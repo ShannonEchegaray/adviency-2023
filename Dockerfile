@@ -3,8 +3,9 @@ FROM node:18-alpine as development
 WORKDIR /usr/src/app
 COPY package*.json ./
 RUN npm install
-COPY tsconfig.json tsconfig.build.json ./
-COPY ./app ./remix* ./server.js ./
+COPY tsconfig.json ./
+COPY ./remix* ./server.js ./
+COPY ./app ./app
 CMD [ "npm", "run", "dev" ]
 
 # Builder stage
