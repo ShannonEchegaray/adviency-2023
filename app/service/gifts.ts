@@ -7,8 +7,11 @@ class Service {
     this.gifts = gifts;
   }
 
-  public add(gift: string): void {
-    this.gifts.push(gift);
+  public add(newGift: string): void {
+    if(this.gifts.some((gift) => gift === newGift)){
+      throw new Error("Error:No se puede añadir un regalo ya creado");
+    }
+    this.gifts.push(newGift);
   }
 
   public delete(index: number): string {
