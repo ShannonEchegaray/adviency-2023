@@ -7,8 +7,14 @@ import Service from "~/service/gifts";
 export const action = async ({ request }: ActionFunctionArgs) => {
   try {
     const body = await request.formData();
-    invariant(body.get("gift"), "Something");
-    Service.add(body.get("gift") as string);
+    invariant(body.get("gift"), "No has enviado el regalo");
+    invariant(body.get("quantity"), "No has enviado la cantidad");
+    Service.add(
+      {
+        title: String(body.get("gift")),
+        quantity: Number(body.get("quantity"))
+      }
+    );
     return redirectWithSuccess("/gifts", "El regalo se seteo correctamente");
   } catch (error) {
     if(isError(error)){

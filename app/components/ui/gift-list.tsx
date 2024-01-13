@@ -2,9 +2,10 @@ import { Box, Button, Icon, List, ListItem, Stack, Text } from "@chakra-ui/react
 import { CloseIcon } from "@chakra-ui/icons";
 import { Form } from "@remix-run/react";
 import React from "react";
+import { type Gift } from "~/service/gifts";
 
 interface GiftListProps {
-  gifts: string[];
+  gifts: Gift[];
 }
 
 const GiftList: React.FC<GiftListProps> = ({ gifts }) => {
@@ -27,10 +28,23 @@ const GiftList: React.FC<GiftListProps> = ({ gifts }) => {
     <List 
       spacing={1}
       flexGrow={1}
+      overflowY={"auto"}
+      css={{
+        '&::-webkit-scrollbar': {
+          width: '4px',
+        },
+        '&::-webkit-scrollbar-track': {
+          width: '6px',
+        },
+        '&::-webkit-scrollbar-thumb': {
+          background: "white",
+          borderRadius: '24px',
+        },
+      }}
     >
       {
         gifts.map((gift, index) => (
-          <Form key={gift} action={`/gifts/${index}/delete`} method="post">
+          <Form key={gift.title} action={`/gifts/${index}/delete`} method="post">
             <Stack 
               direction="row"
               alignItems="center"
@@ -39,7 +53,7 @@ const GiftList: React.FC<GiftListProps> = ({ gifts }) => {
                 <Icon as={CloseIcon}/>
               </Button>
               <ListItem>
-                {gift}
+                X{gift.quantity} - {gift.title}
               </ListItem>
             </Stack>
           </Form>

@@ -1,20 +1,22 @@
 import { giftsMock } from "~/mock/gifts";
 
-class Service {
-  private gifts: string[] = [];
+export interface Gift {
+  title: string
+  quantity: number
+}
 
-  constructor(gifts: string[]){
+class Service {
+  private gifts: Gift[] = [];
+
+  constructor(gifts: Gift[]){
     this.gifts = gifts;
   }
 
-  public add(newGift: string): void {
-    if(this.gifts.some((gift) => gift === newGift)){
-      throw new Error("Error:No se puede añadir un regalo ya creado");
-    }
+  public add(newGift: Gift): void {
     this.gifts.push(newGift);
   }
 
-  public delete(index: number): string {
+  public delete(index: number): Gift {
     return this.gifts.splice(index, 1)[0];
   }
 
@@ -22,7 +24,7 @@ class Service {
     this.gifts = [];
   }
   
-  public get christmasGifts(): string[] {
+  public get christmasGifts(): Gift[] {
     return this.gifts;
   }
   

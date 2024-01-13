@@ -1,6 +1,12 @@
-import { Box, Button, Heading, Input, InputGroup, InputRightElement, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Heading,
+  Text,
+} from "@chakra-ui/react";
 import { json, type MetaFunction } from "@remix-run/node";
 import { Form, Outlet, useLoaderData } from "@remix-run/react";
+import CreateGiftForm from "~/components/create-gift-form/create-gift-form";
 import GiftList from "~/components/ui/gift-list";
 import Service from "~/service/gifts";
 
@@ -13,7 +19,7 @@ export const meta: MetaFunction = () => {
 
 export const loader = async () => {
   return json({
-    gifts: Service.christmasGifts
+    gifts: Service.christmasGifts,
   });
 };
 
@@ -28,13 +34,16 @@ export default function Index() {
       justifyContent="center"
       alignItems="center"
     >
-      <Heading as="h1" fontFamily={"xmas"} fontWeight={200} color="yellow">Feliz Adviency</Heading>
+      <Heading as="h1" fontFamily={"xmas"} fontWeight={200} color="yellow">
+        Feliz Adviency
+      </Heading>
       <Outlet />
       <Box
         py="2"
         px="4"
         minW="30%"
         minH="50%"
+        maxH="75%"
         borderRadius="0.5rem"
         bg="red.600"
         boxShadow="md"
@@ -42,40 +51,16 @@ export default function Index() {
         flexDirection="column"
         gap="2"
       >
-          <Text 
-            fontSize={"x-large"}
-            color="yellow"
-          >
-            Regalos:
-          </Text>
-          <Form method="POST" action="/gifts/add">
-            <InputGroup
-              size="sm"
-            >
-              <Input 
-                name="gift"
-                type="text" 
-                borderRadius="base"
-                _focus={{
-                  borderColor: "yellow",
-                  boxShadow: "none"
-                }}
-              />
-              <InputRightElement w="auto" >
-                <Button type="submit" size="sm" borderRadius="base">Agregar</Button>
-              </InputRightElement>
-            </InputGroup>
-          </Form>
-          <GiftList gifts={gifts} />
-          <Form method="POST" action="/gifts/delete/all">
-              <Button
-                type="submit"
-                size="sm"
-                w="100%"
-              >
-                Borrar todos
-              </Button>
-          </Form>
+        <Text fontSize={"x-large"} fontFamily={"xmas"} color="yellow">
+          Regalos:
+        </Text>
+        <CreateGiftForm />
+        <GiftList gifts={gifts} />
+        <Form method="POST" action="/gifts/delete/all">
+          <Button flexShrink={0} type="submit" size="sm" w="100%">
+            Borrar todos
+          </Button>
+        </Form>
       </Box>
     </Box>
   );

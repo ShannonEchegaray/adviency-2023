@@ -14,7 +14,13 @@ export const theme = extendTheme({
         bg: "radial-gradient(circle, #c30e0e 0%, #771313 100%)",
         color: "white"
       },
-      h1: {
+      p: {
+        fontFamily: "xmas"
+      },
+      input: {
+        fontFamily: "xmas"
+      },
+      li: {
         fontFamily: "xmas"
       }
     })
