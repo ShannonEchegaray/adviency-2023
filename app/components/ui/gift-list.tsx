@@ -1,4 +1,4 @@
-import { Box, Button, Icon, List, ListItem, Stack, Text } from "@chakra-ui/react";
+import { Box, Button, Icon, Image, List, ListItem, Stack, Text } from "@chakra-ui/react";
 import { CloseIcon } from "@chakra-ui/icons";
 import { Form } from "@remix-run/react";
 import React from "react";
@@ -52,7 +52,8 @@ const GiftList: React.FC<GiftListProps> = ({ gifts }) => {
               <Button type="submit" size="sm" colorScheme="red">
                 <Icon as={CloseIcon}/>
               </Button>
-              <ListItem>
+              <ListItem display="flex" gap={2} alignItems={"center"}>
+                <Image w={8} h={8} src={gift.url} alt={gift.title} />
                 X{gift.quantity} - {gift.title}
               </ListItem>
             </Stack>

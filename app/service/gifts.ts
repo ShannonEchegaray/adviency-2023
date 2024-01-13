@@ -3,6 +3,7 @@ import { giftsMock } from "~/mock/gifts";
 export interface Gift {
   title: string
   quantity: number
+  url: string
 }
 
 class Service {

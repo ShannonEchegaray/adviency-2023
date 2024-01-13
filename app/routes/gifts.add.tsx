@@ -12,7 +12,8 @@ export const action = async ({ request }: ActionFunctionArgs) => {
     Service.add(
       {
         title: String(body.get("gift")),
-        quantity: Number(body.get("quantity"))
+        quantity: Number(body.get("quantity")),
+        url: body.get("url") as string ?? "https://placehold.co/100"
       }
     );
     return redirectWithSuccess("/gifts", "El regalo se seteo correctamente");
