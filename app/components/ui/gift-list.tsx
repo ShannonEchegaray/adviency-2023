@@ -1,4 +1,4 @@
-import { Button, Icon, List, ListItem, Stack } from "@chakra-ui/react";
+import { Box, Button, Icon, List, ListItem, Stack, Text } from "@chakra-ui/react";
 import { CloseIcon } from "@chakra-ui/icons";
 import { Form } from "@remix-run/react";
 import React from "react";
@@ -8,8 +8,26 @@ interface GiftListProps {
 }
 
 const GiftList: React.FC<GiftListProps> = ({ gifts }) => {
+
+  if(gifts.length === 0){
+    return (
+      <Box
+        flexGrow={1}
+      >
+        <Text 
+          fontSize="smaller" 
+          color="gray.50"
+          align="center"
+        >No hay regalos</Text>
+      </Box>
+      );
+  }
+
   return (
-    <List spacing={1}>
+    <List 
+      spacing={1}
+      flexGrow={1}
+    >
       {
         gifts.map((gift, index) => (
           <Form key={gift} action={`/gifts/${index}/delete`} method="post">

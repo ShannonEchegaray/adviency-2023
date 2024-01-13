@@ -2,7 +2,7 @@ import { useContext, useEffect } from "react";
 import { cssBundleHref } from "@remix-run/css-bundle";
 import { withEmotionCache } from "@emotion/react";
 import { ChakraProvider } from "@chakra-ui/react";
-import type { LinksFunction } from "@remix-run/node";
+import { type LoaderFunctionArgs, type LinksFunction, json } from "@remix-run/node";
 import {
   Links,
   LiveReload,
@@ -10,20 +10,25 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  useLoaderData,
 } from "@remix-run/react";
 import fontOTF from "./public/fonts/xmas-sweater-stitch/xmas-sweater-stitch.otf";
 import fontWOFF from "./public/fonts/xmas-sweater-stitch/xmas-sweater-stitch.woff";
+import favicon from "./public/favicon.ico";
 
 import { ServerStyleContext, ClientStyleContext } from "./context";
 import { theme } from "./styles/theme";
 
 import SnowfallBackground from "./components/snowfall/snowfall";
 import Fonts from "./styles/fonts";
+import BackgroundToast from "./components/background-toast";
+import { getToast } from "remix-toast";
 
 export const links: LinksFunction = () => [
   ...(cssBundleHref ? [
     {rel: "font", href: fontOTF},
-    {rel: "font", href: fontWOFF}
+    {rel: "font", href: fontWOFF},
+    {rel: "icon", href: favicon}
   ] : []),
 ];
 
@@ -54,6 +59,7 @@ const Document = withEmotionCache(
         <head>
           <meta charSet="utf-8" />
           <meta name="viewport" content="width=device-width, initial-scale=1" />
+          <link rel="icon" type="image/icon" href={favicon}/>
           <Meta />
           <Links />
           {
@@ -78,10 +84,22 @@ const Document = withEmotionCache(
   }
 );
 
+export const loader = async ({ request }: LoaderFunctionArgs) => {
+  const { headers, toast } = await getToast(request);
+
+  return json(
+    {toast},
+    {headers}
+  );
+};
+
 export default function App() {
+  const { toast } = useLoaderData<typeof loader>();
+
   return (
     <Document>
       <ChakraProvider theme={theme}>
+        { toast && <BackgroundToast toast={toast} /> }
         <Fonts link={[{
           format: "opentype",
           url: fontOTF
