@@ -71,6 +71,7 @@ const Document = withEmotionCache(
               />
             ))
           }
+          <title>Adviency App</title>
         </head>
         <body>
           <SnowfallBackground />

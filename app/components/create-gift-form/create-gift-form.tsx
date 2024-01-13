@@ -51,7 +51,7 @@ const CreateGiftForm: React.FC = () => {
           flexGrow={2}
           placeholder="URL..."
           size="sm"
-          name="gift"
+          name="url"
           type="text"
           borderRightWidth="0"
           onFocus={handleFocus(true)}

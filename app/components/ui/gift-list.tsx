@@ -53,7 +53,7 @@ const GiftList: React.FC<GiftListProps> = ({ gifts }) => {
                 <Icon as={CloseIcon}/>
               </Button>
               <ListItem display="flex" gap={2} alignItems={"center"}>
-                <Image w={8} h={8} src={gift.url} alt={gift.title} />
+                <Image w={8} h={8} objectFit={"cover"} objectPosition={"center"} src={gift.url} alt={gift.title} />
                 X{gift.quantity} - {gift.title}
               </ListItem>
             </Stack>
