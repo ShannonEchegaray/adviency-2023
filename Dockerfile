@@ -23,4 +23,5 @@ FROM node:18-alpine as production
 RUN apk --no-cache add nodejs ca-certificates
 WORKDIR /root/
 COPY --from=builder /usr/src/app ./
+EXPOSE 3000
 CMD [ "npm", "start" ]
