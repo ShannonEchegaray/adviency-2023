@@ -1,113 +1,54 @@
-import { TriangleDownIcon, TriangleUpIcon } from "@chakra-ui/icons";
 import {
   Button,
   Flex,
-  Input,
-  NumberDecrementStepper,
-  NumberIncrementStepper,
-  NumberInput,
-  NumberInputField,
-  NumberInputStepper,
 } from "@chakra-ui/react";
-import { Form } from "@remix-run/react";
-import React, { useState } from "react";
+import { Form, useNavigation } from "@remix-run/react";
+import React, { useEffect } from "react";
+import UIInput from "../ui/input/input";
+import UINumberInput from "../ui/number-input/number-input";
 
-const CreateGiftForm: React.FC = () => {
-  const [isFocused, setIsFocused] = useState(false);
+interface CreateGiftFormProps {
+  route: string
+  defaultValues?: {}
+}
 
-  const handleFocus = (value: boolean) => () => {
-    setIsFocused(value);
-  };
+const CreateGiftForm: React.FC<CreateGiftFormProps> = ({ route }) => {
+
+  useEffect(() => {
+
+  }, []);
+  const handler = (e: React.FormEvent<HTMLFormElement>) => e.currentTarget.reset();
 
   return (
-    <Form method="POST" action="/gifts/add">
-      <Flex>
-        <Input
-          borderRadius={0}
-          borderLeftRadius="base"
-          flexGrow={2}
-          placeholder="Ingrese su regalo..."
-          size="sm"
+    <Form 
+      method="POST" 
+      action={route}
+      onSubmit={handler}
+    >
+      <Flex 
+        pb={2}
+        direction={"column"}
+        gap={4}
+      >
+        <UIInput 
+          label="Nombre"
           name="gift"
-          type="text"
-          borderRightWidth="0"
-          onFocus={handleFocus(true)}
-          onBlur={handleFocus(false)}
-          boxShadow={isFocused ? "base" : "none"}
-          borderColor={isFocused ? "yellow" : "none"}
-          _focus={{
-            borderColor: "yellow",
-            boxShadow: "none",
-          }}
-          _hover={{
-            borderColor: "yellow",
-          }}
-          _placeholder={{
-            color: "gray.200",
-          }}
+          placeholder="Ingrese su Regalo..."
         />
-        <Input
-          borderRadius={0}
-          flexGrow={2}
+        <UIInput
+          label="URL Imagen"
           placeholder="URL..."
-          size="sm"
           name="url"
-          type="text"
-          borderRightWidth="0"
-          onFocus={handleFocus(true)}
-          onBlur={handleFocus(false)}
-          boxShadow={isFocused ? "base" : "none"}
-          borderColor={isFocused ? "yellow" : "none"}
-          _focus={{
-            borderColor: "yellow",
-            boxShadow: "none",
-          }}
-          _hover={{
-            borderColor: "yellow",
-          }}
-          _placeholder={{
-            color: "gray.200",
-          }}
         />
-        <NumberInput size="sm" min={1} flexShrink={0.5}>
-          <NumberInputField
-            borderRadius={0}
-            borderRightWidth={0}
-            placeholder="Cantidad"
-            name="quantity"
-            onFocus={handleFocus(true)}
-            onBlur={handleFocus(false)}
-            boxShadow={isFocused ? "base" : "none"}
-            borderColor={isFocused ? "yellow" : "none"}
-            _focus={{
-              borderColor: "yellow",
-              boxShadow: "none",
-            }}
-            _hover={{
-              borderColor: "yellow",
-            }}
-            _placeholder={{
-              color: "gray.200",
-            }}
-          />
-          <NumberInputStepper>
-            <NumberIncrementStepper
-              boxShadow={isFocused ? "base" : "none"}
-              borderColor={isFocused ? "yellow" : "none"}
-              children={<TriangleUpIcon color="white" />}
-            />
-            <NumberDecrementStepper
-              boxShadow={isFocused ? "base" : "none"}
-              borderColor={isFocused ? "yellow" : "none"}
-              children={<TriangleDownIcon color="white" />}
-            />
-          </NumberInputStepper>
-        </NumberInput>
+        <UINumberInput
+          label="Cantidad"
+          placeholder="Cantidad..."
+          name="quantity"
+        />
         <Button
           flexShrink={0}
           borderRadius={0}
           borderRightRadius="base"
-          bg={isFocused ? "yellow" : "white"}
           _hover={{
             bg: "yellow"
           }}

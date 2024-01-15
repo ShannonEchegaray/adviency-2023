@@ -10,8 +10,8 @@ export const action = async ({ request }: ActionFunctionArgs) => {
     const body = await request.formData();
     invariant(body.get("gift"), "No has enviado el regalo");
     invariant(body.get("quantity"), "No has enviado la cantidad");
-    const url = body.get("url");
-    if(url !== null){
+    const url = body.get("url") as null | string;
+    if(url !== null && url.length !== 0){
       const arrayBuffer = await fetch(url as string)
         .then((res) => {
           const content = res.headers.get("content-type") as string;
